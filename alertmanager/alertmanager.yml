@@ -1,0 +1,12 @@
+route:
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  receiver: telegram-bot
+
+receivers:
+  - name: telegram-bot
+    telegram_configs:
+      - bot_token: <TELEGRAM_BOT_TOKEN>
+        chat_id: <TELEGRAM_CHAT_ID>
+

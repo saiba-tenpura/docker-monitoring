@@ -3,6 +3,7 @@ global:
   evaluation_interval: 15s
 
 rule_files:
+  - base.rules
   # - "first.rules"
   # - "second.rules"
 
@@ -21,4 +22,10 @@ scrape_configs:
     static_configs:
       - targets:
         - cadvisor:8080
+
+alerting:
+  alertmanagers:
+    - static_configs:
+      - targets:
+        - alertmanager:9093
 

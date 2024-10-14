@@ -48,6 +48,16 @@ services:
       - "traefik.http.routers.grafana.rule=Host(`${GRAFANA_URL}`)"
       - "traefik.http.routers.grafana.tls=true"
 
+  alertmanager:
+    image: prom/alertmanager
+    restart: unless-stopped
+    volumes:
+      - ./alertmanager/:/etc/alertmanager/
+    networks:
+      - monitoring
+    expose:
+      - 9093
+
   cadvisor:
     image: gcr.io/cadvisor/cadvisor
     volumes:
