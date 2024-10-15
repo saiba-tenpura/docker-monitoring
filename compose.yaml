@@ -57,6 +57,10 @@ services:
       - monitoring
     expose:
       - 9093
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.rule=Host(`${ALERTMANAGER_URL}`)"
+      - "traefik.http.routers.grafana.tls=true"
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor
