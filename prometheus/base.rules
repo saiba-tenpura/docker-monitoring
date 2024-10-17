@@ -1,4 +1,15 @@
 groups:
+  - name: Prometheus
+    rules:
+      - alert: PrometheusTooManyRestarts
+        expr: changes(process_start_time_seconds{job=~"prometheus|pushgateway|alertmanager"}[15m]) > 2
+        for: 0m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Prometheus too many restarts (instance {{ $labels.instance }})"
+          description: "Prometheus has restarted more than twice in the last 15 minutes. It might be crashlooping.\n VALUE = {{ $value }}\n LABELS = {{ $labels }}"
+
   - name: Instances
     rules:
       - alert: InstanceDown
@@ -45,3 +56,12 @@ groups:
         annotations:
           summary: "Instance {{ $labels.instance }} is out of disk space!"
           description: "Instance disk is almost full (< 10% left)\n VALUE = {{ $value }}\n LABELS = {{ $labels }}."
+
+      - alert: InstanceOutOfInodes
+        expr: (node_filesystem_files_free{fstype!="msdosfs"} / node_filesystem_files{fstype!="msdosfs"} * 100 < 10 and ON (instance, device, mountpoint) node_filesystem_readonly == 0) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Instance {{ $labels.instance }} is out of inodes!"
+          description: "{{ $labels.instance }}: Device error with the {{ $labels.mountpoint }} filesystem\n VALUE = {{ $value }}\n LABELS = {{ $labels }}"
