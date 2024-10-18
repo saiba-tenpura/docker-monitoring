@@ -1,0 +1,17 @@
+{{ define "telegram.custom.message" }}
+{{ if gt (len .Alerts.Firing) 0 }}
+[FIRING: {{ len .Alerts.Firing }}]
+{{ template "__telegram_alert_list" .Alerts.Firing }}
+{{ end }}
+{{ if gt (len .Alerts.Resolved) 0 }}
+[RESOLVED: {{ len .Alerts.Resolved }}]
+{{ template "__telegram_alert_list" .Alerts.Resolved }}
+{{ end }}
+{{ end }}
+
+{{ define "__telegram_alert_list" }}{{ range . }}
+<b>Alert:</b> {{ .Labels.alertname }}
+<b>Severity:</b> {{ .Labels.severity }}
+<b>Summary:</b> {{ .Annotations.summary }}
+<b>Description:</b> {{ .Annotations.description }}
+{{ end }}{{ end }}

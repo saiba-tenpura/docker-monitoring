@@ -9,6 +9,6 @@ Basic monitoring setup via Docker Compose using Prometheus and Grafana.
 ## Setup Alertmanager File
 ```bash
 export $(cat .env | xargs)
-envsubst < alertmanager/alertmanager.yml.template > alertmanager/alertmanager.yml
+envsubst < alertmanager/alertmanager.yml.tmpl > alertmanager/alertmanager.yml
 ```
 
