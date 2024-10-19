@@ -24,43 +24,8 @@ services:
       - prometheus-data:/prometheus
     networks:
       - monitoring
-      - proxy-network
     expose:
       - 9090
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.prometheus.rule=Host(`${PROMETHEUS_URL}`)"
-      - "traefik.http.routers.prometheus.tls=true"
-
-  grafana:
-    image: grafana/grafana
-    restart: unless-stopped
-    volumes:
-      - ./grafana/provisioning:/etc/grafana/provisioning
-      - grafana-data:/var/lib/grafana
-    networks:
-      - monitoring
-      - proxy-network
-    expose:
-      - 3000
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.grafana.rule=Host(`${GRAFANA_URL}`)"
-      - "traefik.http.routers.grafana.tls=true"
-
-  alertmanager:
-    image: prom/alertmanager
-    restart: unless-stopped
-    volumes:
-      - ./alertmanager/:/etc/alertmanager/
-    networks:
-      - monitoring
-    expose:
-      - 9093
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.alertmanager.rule=Host(`${ALERTMANAGER_URL}`)"
-      - "traefik.http.routers.alertmanager.tls=true"
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor
@@ -78,10 +43,6 @@ services:
 
 volumes:
   prometheus-data:
-  grafana-data:
 
 networks:
   monitoring:
-  proxy-network:
-    external: true
-

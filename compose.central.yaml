@@ -1,0 +1,51 @@
+services:
+  prometheus:
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.central.yml'
+    networks:
+      - monitoring
+      - proxy-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.prometheus.rule=Host(`${PROMETHEUS_URL}`)"
+      - "traefik.http.routers.prometheus.tls=true"
+
+  grafana:
+    image: grafana/grafana
+    restart: unless-stopped
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - grafana-data:/var/lib/grafana
+    networks:
+      - monitoring
+      - proxy-network
+    expose:
+      - 3000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.rule=Host(`${GRAFANA_URL}`)"
+      - "traefik.http.routers.grafana.tls=true"
+
+  alertmanager:
+    image: prom/alertmanager
+    restart: unless-stopped
+    volumes:
+      - ./alertmanager/:/etc/alertmanager/
+    networks:
+      - monitoring
+    expose:
+      - 9093
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.alertmanager.rule=Host(`${ALERTMANAGER_URL}`)"
+      - "traefik.http.routers.alertmanager.tls=true"
+
+volumes:
+  grafana-data:
+
+networks:
+  proxy-network:
+    external: true

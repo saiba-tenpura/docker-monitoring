@@ -1,0 +1,23 @@
+services:
+  prometheus:
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.node.yml'
+    networks:
+      - monitoring
+      - proxy-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.prometheus.rule=Host(`${PROMETHEUS_URL}`)"
+      - "traefik.http.routers.prometheus.tls=true"
+      - "traefik.http.routers.dashboard.middlewares=auth"
+      - "traefik.http.middlewares.auth.digestauth.users=${PROMETHEUS_DIGEST_AUTH}"
+
+volumes:
+  prometheus-data:
+
+networks:
+  proxy-network:
+    external: true
