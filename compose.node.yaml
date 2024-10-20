@@ -12,8 +12,9 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.prometheus.rule=Host(`${PROMETHEUS_URL}`)"
       - "traefik.http.routers.prometheus.tls=true"
-      - "traefik.http.routers.dashboard.middlewares=auth"
-      - "traefik.http.middlewares.auth.digestauth.users=${PROMETHEUS_DIGEST_AUTH}"
+      - "traefik.http.routers.prometheus.tls.certresolver=letsEncrypt"
+      - "traefik.http.routers.prometheus.middlewares=prometheus-auth"
+      - "traefik.http.middlewares.prometheus-auth.basicauth.users=${PROMETHEUS_BASIC_AUTH}"
 
 volumes:
   prometheus-data:
