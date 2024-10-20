@@ -1,3 +1,4 @@
 .env
 alertmanager/alertmanager.yml
 prometheus/prometheus.central.yml
+prometheus/prometheus.node.yml
