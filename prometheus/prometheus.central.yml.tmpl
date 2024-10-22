@@ -30,14 +30,20 @@ scrape_configs:
     basic_auth:
       username: prometheus
       password: $PROMETHEUS_PASSWORD
+    scheme: https
     honor_labels: true
     metrics_path: '/federate'
     params:
       'match[]':
         - '{__name__=~".+"}'
+    metric_relabel_configs:
+      - source_labels: ['monitor']
+        target_label: instance
+      - action: labeldrop
+        regex: monitor
     static_configs:
       - targets:
-        - 'prometheus.saiba-tenpura.com:443'
+        - 'prometheus.saiba-tenpura.com'
 
 alerting:
   alertmanagers:
