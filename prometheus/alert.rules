@@ -65,3 +65,14 @@ groups:
         annotations:
           summary: "Instance {{ $labels.instance }} is out of inodes!"
           description: "{{ $labels.instance }}: Device error with the {{ $labels.mountpoint }} filesystem\n VALUE = {{ $value }}\n LABELS = {{ $labels }}"
+
+  - name: Traefik
+    rules:
+      - alert: TraefikServiceDown
+        expr: count(traefik_service_server_up) by (service) == 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: "The traefik service on instance {{ $labels.instance }} is down!"
+          description: "All traefik services are down!\n VALUE = {{ $value }}\n LABELS = {{ $labels }}"
