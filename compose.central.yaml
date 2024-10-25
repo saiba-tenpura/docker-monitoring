@@ -47,6 +47,16 @@ services:
       - "traefik.http.routers.alertmanager.rule=Host(`${ALERTMANAGER_URL}`)"
       - "traefik.http.routers.alertmanager.tls=true"
 
+  blackbox-exporter:
+    image: prom/blackbox-exporter
+    restart: unless-stopped
+    volumes:
+      - ./blackbox:/etc/blackbox_exporter
+    networks:
+      - monitoring
+    expose:
+      - 9115
+
 volumes:
   grafana-data:
 
