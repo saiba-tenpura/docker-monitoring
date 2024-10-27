@@ -14,3 +14,6 @@ envsubst < alertmanager/alertmanager.yml.tmpl > alertmanager/alertmanager.yml
 envsubst < prometheus/prometheus.central.yml.tmpl > prometheus/prometheus.central.yml
 envsubst < prometheus/prometheus.node.yml.tmpl > prometheus/prometheus.node.yml
 ```
+
+## Rules
+The used rules are mostly from/inspired by [awesome-prometheus-alerts](https://samber.github.io/awesome-prometheus-alerts/rules).
