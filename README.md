@@ -3,8 +3,9 @@ Basic monitoring setup via Docker Compose using Prometheus and Grafana.
 
 ## Grafana Dashboards
 - [Node Exporter Full](https://grafana.com/grafana/dashboards/1860-node-exporter-full/)
-- [Traefik Official Standalone Dasbhoard](https://grafana.com/grafana/dashboards/17346-traefik-official-standalone-dashboard/)
+- [Prometheus Blackbox Exporter](https://grafana.com/grafana/dashboards/7587-prometheus-blackbox-exporter/)
 - [cAdvisor Exporter](https://grafana.com/grafana/dashboards/14282-cadvisor-exporter/)
+- [Traefik Official Standalone Dasbhoard](https://grafana.com/grafana/dashboards/17346-traefik-official-standalone-dashboard/)
 
 ## Setup Alertmanager File
 ```bash

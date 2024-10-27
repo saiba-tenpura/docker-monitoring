@@ -54,8 +54,13 @@ services:
       - ./blackbox:/etc/blackbox_exporter
     networks:
       - monitoring
+      - proxy-network
     expose:
       - 9115
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.blackbox.rule=Host(`${BLACKBOX_URL}`)"
+      - "traefik.http.routers.blackbox.tls=true"
 
 volumes:
   grafana-data:
