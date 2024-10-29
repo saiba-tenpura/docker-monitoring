@@ -38,10 +38,10 @@ scrape_configs:
       - targets:
         - traefik-proxy:8080
 
-  - job_name: blackbox
+  - job_name: blackbox-http
     metrics_path: /probe
     params:
-      module: [ http_2xx ]
+      module: [http_2xx]
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
@@ -52,6 +52,24 @@ scrape_configs:
     static_configs:
       - targets:
         - http://saiba-tenpura.com
+//        - http://static.saiba-tenpura.com
+
+  - job_name: blackbox-smtp
+    metrics_path: /probe
+    params:
+      module: [smtp_starttls]
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: (.*)(:.*)?
+        replacement: ${1}:587
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter:9115
+    static_configs:
+      - targets:
+        - 'mail.saiba-tenpura.com'
 
   - job_name: blackbox-exporter
     static_configs:

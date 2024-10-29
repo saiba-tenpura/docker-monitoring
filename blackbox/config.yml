@@ -8,3 +8,19 @@ modules:
       follow_redirects: true
       valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
       preferred_ip_protocol: "ip4"
+
+  smtp_starttls:
+    prober: tcp
+    timeout: 20s
+    tcp:
+      preferred_ip_protocol: "ip4"
+      query_response:
+        - expect: "^220 ([^ ]+) ESMTP(.?)$"
+        - send: "EHLO prober\r"
+        - expect: "^250-STARTTLS"
+        - send: "STARTTLS\r"
+        - expect: "^220"
+        - starttls: true
+        - send: "EHLO prober\r"
+        - expect: "^250-AUTH"
+        - send: "QUIT\r"
