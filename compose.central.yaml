@@ -40,6 +40,7 @@ services:
       - ./alertmanager/:/etc/alertmanager/
     networks:
       - monitoring
+      - proxy-network
     expose:
       - 9093
     labels:
