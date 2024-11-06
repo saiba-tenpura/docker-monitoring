@@ -29,6 +29,7 @@ services:
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor
+    restart: unless-stopped
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
