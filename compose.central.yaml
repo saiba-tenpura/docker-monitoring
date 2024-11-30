@@ -8,6 +8,8 @@ services:
     networks:
       - monitoring
       - proxy-network
+    depends_on:
+      - blackbox-exporter
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.prometheus.rule=Host(`${PROMETHEUS_URL}`)"
@@ -28,6 +30,8 @@ services:
       - proxy-network
     expose:
       - 3000
+    depends_on:
+      - prometheus
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.grafana.rule=Host(`${GRAFANA_URL}`)"

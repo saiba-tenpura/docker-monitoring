@@ -26,6 +26,9 @@ services:
       - monitoring
     expose:
       - 9090
+    depends_on:
+      - cadvisor
+      - node-exporter
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor
