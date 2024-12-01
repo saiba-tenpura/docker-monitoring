@@ -39,6 +39,8 @@ scrape_configs:
         - traefik-proxy:8080
 
   - job_name: blackbox-http
+    scrape_interval: 25s
+    scrape_timeout: 20s
     metrics_path: /probe
     params:
       module: [http_2xx]
@@ -81,6 +83,8 @@ scrape_configs:
       username: prometheus
       password: $PROMETHEUS_PASSWORD
     scheme: https
+    scrape_interval: 25s
+    scrape_timeout: 20s
     honor_labels: true
     metrics_path: '/federate'
     params:
