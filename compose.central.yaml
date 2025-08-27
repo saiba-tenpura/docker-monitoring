@@ -12,7 +12,7 @@ services:
       - blackbox-exporter
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.prometheus.rule=Host(`${PROMETHEUS_URL}`)"
+      - "traefik.http.routers.prometheus.rule=HostRegexp(`${PROMETHEUS_URL}`)"
       - "traefik.http.routers.prometheus.tls=true"
 
   grafana:
@@ -34,7 +34,7 @@ services:
       - prometheus
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.grafana.rule=Host(`${GRAFANA_URL}`)"
+      - "traefik.http.routers.grafana.rule=HostRegexp(`${GRAFANA_URL}`)"
       - "traefik.http.routers.grafana.tls=true"
 
   alertmanager:
@@ -49,7 +49,7 @@ services:
       - 9093
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.alertmanager.rule=Host(`${ALERTMANAGER_URL}`)"
+      - "traefik.http.routers.alertmanager.rule=HostRegexp(`${ALERTMANAGER_URL}`)"
       - "traefik.http.routers.alertmanager.tls=true"
 
   blackbox-exporter:
