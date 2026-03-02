@@ -1,5 +1,5 @@
 # Monitoring
-Basic monitoring setup via Docker Compose using Prometheus and Grafana.
+Basic monitoring setup via Docker Compose using mainly Prometheus, Grafana as well as a Telegram Bot for sending notifications.
 
 ## Grafana Dashboards
 - [Node Exporter Full](https://grafana.com/grafana/dashboards/1860-node-exporter-full/)
@@ -51,6 +51,21 @@ cp .env.example .en
 export $(cat .env | xargs)
 envsubst < prometheus/prometheus.node.yml.tmpl > prometheus/prometheus.node.yml
 ```
+
+## Environment Variables
+| Variable | Description |
+| -------- | ----------- |
+| `NODE_NAME` | Unique identifier for the node/server. Used to label metrics, alerts, or dashboards. |
+| `PROMETHEUS_URL` | Base URL of the Prometheus server used for querying metrics. |
+| `GRAFANA_URL` | Base URL of the Grafana instance for dashboards and API access. |
+| `ALERTMANAGER_URL` | Base URL the Alertmanager service handling alerts. |
+| `BLACKBOX_URL` | Base URL of the Blackbox Exporter used for endpoint probing. |
+| `GRAFANA_ADMIN_USER` | Username for Grafana administrative interface access. |
+| `GRAFANA_ADMIN_PASSWORD` | Password for the Grafana admin user. |
+| `TELEGRAM_BOT_TOKEN` | API token for a Telegram bot used to send notifications or alerts. |
+| `TELEGRAM_CHAT_ID` | Target Telegram chat ID where notifications will be sent. |
+| `PROMETHEUS_BASIC_AUTH` | Username for Prometheus basic authentication. |
+| `PROMETHEUS_PASSWORD` | Password for Prometheus basic authentication. |
 
 ## Rules
 The used rules are mostly from/inspired by [awesome-prometheus-alerts](https://samber.github.io/awesome-prometheus-alerts/rules).
