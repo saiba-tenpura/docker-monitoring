@@ -12,8 +12,7 @@ services:
       - blackbox-exporter
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.prometheus.rule=Host(`${PROMETHEUS_URL}`)"
-      - "traefik.http.routers.prometheus.tls=true"
+      - "traefik.http.routers.prometheus.rule=Host(`${PROMETHEUS_DOMAIN}`)"
 
   grafana:
     image: grafana/grafana:12.4.0
@@ -34,8 +33,7 @@ services:
       - prometheus
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.grafana.rule=Host(`${GRAFANA_URL}`)"
-      - "traefik.http.routers.grafana.tls=true"
+      - "traefik.http.routers.grafana.rule=Host(`${GRAFANA_DOMAIN}`)"
 
   alertmanager:
     image: prom/alertmanager:v0.31.1
@@ -49,8 +47,7 @@ services:
       - 9093
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.alertmanager.rule=Host(`${ALERTMANAGER_URL}`)"
-      - "traefik.http.routers.alertmanager.tls=true"
+      - "traefik.http.routers.alertmanager.rule=Host(`${ALERTMANAGER_DOMAIN}`)"
 
   blackbox-exporter:
     image: prom/blackbox-exporter:v0.28.0
@@ -64,8 +61,7 @@ services:
       - 9115
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.blackbox.rule=Host(`${BLACKBOX_URL}`)"
-      - "traefik.http.routers.blackbox.tls=true"
+      - "traefik.http.routers.blackbox.rule=Host(`${BLACKBOX_DOMAIN}`)"
 
 volumes:
   grafana-data:
