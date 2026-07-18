@@ -56,10 +56,10 @@ envsubst < prometheus/prometheus.node.yml.tmpl > prometheus/prometheus.node.yml
 | Variable | Description |
 | -------- | ----------- |
 | `NODE_NAME` | Unique identifier for the node/server. Used to label metrics, alerts, or dashboards. |
-| `PROMETHEUS_URL` | Base URL of the Prometheus server used for querying metrics. |
-| `GRAFANA_URL` | Base URL of the Grafana instance for dashboards and API access. |
-| `ALERTMANAGER_URL` | Base URL the Alertmanager service handling alerts. |
-| `BLACKBOX_URL` | Base URL of the Blackbox Exporter used for endpoint probing. |
+| `PROMETHEUS_DOMAIN` | Base DOMAIN of the Prometheus server used for querying metrics. |
+| `GRAFANA_DOMAIN` | Base DOMAIN of the Grafana instance for dashboards and API access. |
+| `ALERTMANAGER_DOMAIN` | Base DOMAIN the Alertmanager service handling alerts. |
+| `BLACKBOX_DOMAIN` | Base DOMAIN of the Blackbox Exporter used for endpoint probing. |
 | `GRAFANA_ADMIN_USER` | Username for Grafana administrative interface access. |
 | `GRAFANA_ADMIN_PASSWORD` | Password for the Grafana admin user. |
 | `TELEGRAM_BOT_TOKEN` | API token for a Telegram bot used to send notifications or alerts. |
