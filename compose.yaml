@@ -1,6 +1,6 @@
 services:
   node-exporter:
-    image: prom/node-exporter:v1.11.1
+    image: prom/node-exporter:v1.12.1
     restart: unless-stopped
     volumes:
       - /:/rootfs:ro
@@ -17,7 +17,7 @@ services:
       - monitoring
 
   prometheus:
-    image: prom/prometheus:v3.13.0
+    image: prom/prometheus:v3.14.0
     restart: unless-stopped
     volumes:
       - ./prometheus:/etc/prometheus
@@ -31,7 +31,7 @@ services:
       - node-exporter
 
   cadvisor:
-    image: ghcr.io/google/cadvisor:v0.60.3
+    image: ghcr.io/google/cadvisor:v0.60.5
     restart: unless-stopped
     volumes:
       - /:/rootfs:ro
