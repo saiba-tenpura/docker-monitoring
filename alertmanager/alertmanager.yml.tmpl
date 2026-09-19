@@ -14,3 +14,20 @@ receivers:
 
 templates:
   - '/etc/alertmanager/telegram.tmpl'
+
+inhibit_rules:
+  # Suppress warnings when a critical is firing for the same instance
+  - source_matchers:
+      - severity = "critical"
+    target_matches:
+      - severity = "warning"
+    equal:
+      - alertname
+      - instance
+
+  - source_matchers:
+      - alertname = "InstanceDown"
+    target_matchers:
+      - job = "prometheus"
+    equal:
+      - instance
