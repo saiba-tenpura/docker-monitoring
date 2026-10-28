@@ -15,7 +15,7 @@ services:
       - "traefik.http.routers.prometheus.rule=Host(`${PROMETHEUS_DOMAIN}`)"
 
   grafana:
-    image: grafana/grafana:13.2.0
+    image: grafana/grafana:13.3.0
     restart: unless-stopped
     volumes:
       - ./grafana/provisioning:/etc/grafana/provisioning
@@ -49,7 +49,7 @@ services:
       - "traefik.http.routers.grafana.rule=Host(`${GRAFANA_DOMAIN}`)"
 
   alertmanager:
-    image: prom/alertmanager:v0.34.0
+    image: prom/alertmanager:v0.34.1
     restart: unless-stopped
     volumes:
       - ./alertmanager/:/etc/alertmanager/
@@ -63,7 +63,7 @@ services:
       - "traefik.http.routers.alertmanager.rule=Host(`${ALERTMANAGER_DOMAIN}`)"
 
   blackbox-exporter:
-    image: prom/blackbox-exporter:v0.28.0
+    image: prom/blackbox-exporter:v0.29.1
     restart: unless-stopped
     volumes:
       - ./blackbox:/etc/blackbox_exporter
